@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-import { APP_CONSTANTS } from '@/constants/appContants'
+// import { APP_CONSTANTS } from '@/constants/appContants'
 
 
 export const api = axios.create({
-  baseURL: APP_CONSTANTS.API_BASE_URL,
+  baseURL: 'APP_CONSTANTS.API_BASE_URL',
   headers: {
     'Content-Type': 'application/json',
   },
