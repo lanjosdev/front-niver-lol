@@ -36,7 +36,7 @@ export default function App() {
 
   return (
     <div
-      className="min-h-dvh w-full max-w-lg mx-auto flex flex-col overflow-x-hidden relative   border-4 border-yellow-500"
+      className="min-h-dvh w-full max-w-lg mx-auto flex flex-col overflow-x-hidden relative   border- border-yellow-500"
     >
       {/* {start ? (
         <Presentation />
