@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { VideoIcon, Volume2, Play, Pause } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 
@@ -26,6 +26,10 @@ export function Messages() {
         setSelectedPerson(person);
         setIsModalOpen(true);
         setIsPlaying(false);
+        // Ajusta o BG imediatamente ao abrir e pausa para qualquer mídia (vídeo/áudio)
+        window.dispatchEvent(new CustomEvent("bg-audio:volume", { detail: { volume: 0.1 } }));
+        window.dispatchEvent(new Event("bg-audio:pause"));
+        window.__bgAudio?.pause?.();
     };
 
     const togglePlayPause = () => {
@@ -46,6 +50,21 @@ export function Messages() {
             mediaRef.current.addEventListener('ended', () => setIsPlaying(false));
         }
     };
+
+    // Quando o modal fecha, pausar mídia ativa e retomar BG no mesmo gesto
+    useEffect(() => {
+        if (!isModalOpen) {
+            const media = mediaRef.current as HTMLVideoElement | HTMLAudioElement | null;
+            if (media) {
+                try { media.pause(); } catch { /* noop */ }
+                try { media.currentTime = 0; } catch { /* noop */ }
+            }
+            window.dispatchEvent(new Event("bg-audio:resume"));
+            window.dispatchEvent(new CustomEvent("bg-audio:volume", { detail: { volume: window.__bgAudio?.initialVolume ?? 0.3 } }));
+            setSelectedPerson(null);
+            setIsPlaying(false);
+        }
+    }, [isModalOpen]);
 
     return (
         <div className="flex-1 p-6 bg-gradient-to-br from-purple-900 via-pink-800 to-orange-900     border-4 border-red-500">
@@ -112,7 +131,27 @@ export function Messages() {
             </div>
 
             {/* Modal para reproduzir mídia */}
-            <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+            <Dialog
+                open={isModalOpen}
+                onOpenChange={(open) => {
+                    // Executa retomada do BG no mesmo callstack de gesto ao fechar
+                    if (!open) {
+                        const media = mediaRef.current as HTMLVideoElement | HTMLAudioElement | null;
+                        if (media) {
+                            try { media.pause(); } catch { void 0; }
+                            try { media.currentTime = 0; } catch { void 0; }
+                        }
+                        const restoreVol = window.__bgAudio?.initialVolume ?? 0.3;
+                        window.__bgAudio?.setVolume?.(restoreVol);
+                        window.__bgAudio?.play?.();
+                        window.dispatchEvent(new CustomEvent("bg-audio:volume", { detail: { volume: restoreVol } }));
+                        window.dispatchEvent(new Event("bg-audio:resume"));
+                        setSelectedPerson(null);
+                        setIsPlaying(false);
+                    }
+                    setIsModalOpen(open);
+                }}
+            >
                 <DialogContent className="w-full max-w-[95%] p-0 bg-gradient-to-br from-black/95 to-purple-900/95 border border-purple-500/30 backdrop-blur-lg">
                     <DialogHeader className="p-6 pb-2">
                         <DialogTitle className="text-xl font-bold text-white flex items-center gap-3">
@@ -134,6 +173,8 @@ export function Messages() {
                                     className="w-full h-auto max-h-[500px] object-contain"
                                     controls
                                     controlsList="nodownload"
+                                    playsInline
+                                    {...({ webkitPlaysinline: true } as unknown as Record<string, unknown>)}
                                     onLoadedData={handleMediaLoadedData}
                                     poster={selectedPerson?.image}
                                 />

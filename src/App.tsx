@@ -17,6 +17,8 @@ export default function App() {
   const [currentSection, setCurrentSection] = useState<number>(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  const DEFAULT_BG_VOLUME = 0.3;
+
   const sections = [
     { id: "timeline" },
     { id: "messages" },
@@ -45,7 +47,7 @@ export default function App() {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.4;
+    audio.volume = DEFAULT_BG_VOLUME;
 
     let removeUnlockListeners: (() => void) | null = null;
 
@@ -82,6 +84,63 @@ export default function App() {
 
     return () => {
       if (removeUnlockListeners) removeUnlockListeners();
+    };
+  }, []);
+
+  // Orquestra pausa/retomada do áudio de fundo via eventos globais
+  useEffect(() => {
+    const handlePause = () => {
+      audioRef.current?.pause();
+    };
+
+    const handleResume = async () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      try {
+        await audio.play();
+      } catch {
+        // Se falhar (iOS exigindo gesto), anexa ao próximo gesto
+        const unlock = () => {
+          audio.play().catch(() => {});
+          document.removeEventListener("pointerdown", unlock);
+          document.removeEventListener("touchstart", unlock);
+          document.removeEventListener("click", unlock);
+          document.removeEventListener("keydown", unlock);
+        };
+        document.addEventListener("pointerdown", unlock, { once: true, passive: true });
+        document.addEventListener("touchstart", unlock, { once: true, passive: true });
+        document.addEventListener("click", unlock, { once: true, passive: true });
+        document.addEventListener("keydown", unlock, { once: true });
+      }
+    };
+
+    const handleVolume = (e: Event) => {
+      const anyEvent = e as unknown as { detail?: { volume?: number } };
+      const vol = anyEvent.detail?.volume;
+      if (typeof vol === "number" && audioRef.current) {
+        audioRef.current.volume = Math.min(1, Math.max(0, vol));
+      }
+    };
+
+    window.addEventListener("bg-audio:pause", handlePause);
+    window.addEventListener("bg-audio:resume", handleResume);
+    window.addEventListener("bg-audio:volume", handleVolume as EventListener);
+
+    // expõe API tipada para consumo direto (opcional)
+    window.__bgAudio = {
+      play: handleResume,
+      pause: () => handlePause(),
+      setVolume: (v: number) => handleVolume(new CustomEvent("bg-audio:volume", { detail: { volume: v } }) as unknown as Event),
+      getVolume: () => audioRef.current?.volume ?? DEFAULT_BG_VOLUME,
+      initialVolume: DEFAULT_BG_VOLUME
+    }
+
+    return () => {
+      window.removeEventListener("bg-audio:pause", handlePause);
+      window.removeEventListener("bg-audio:resume", handleResume);
+      window.removeEventListener("bg-audio:volume", handleVolume as EventListener);
+      // cleanup API
+      delete window.__bgAudio;
     };
   }, []);
 
