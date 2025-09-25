@@ -54,6 +54,10 @@ export function Presentation() {
         </div>
       </div>
 
+
+
+      
+
       {/* Navigation controls */}
       <div className="fixed bottom-6 left-0 right-0 z-40">
         <div className="flex justify-between items-center max-w-lg mx-auto px-6">

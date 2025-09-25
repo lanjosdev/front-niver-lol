@@ -1,12 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { useApp } from "@/contexts/AppContext";
 import { Heart, Sparkles } from "lucide-react";
 
 export function Intro() {
-    const { nextSection } = useApp();
+    // const { nextSection } = useApp();
 
     return (
-        <div className="text-center space-y-8 fade-in">
+        <div className="flex-1 text-center space-y-8 fade-in bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900    border-4 border-red-500">
             {/* Header with icon */}
             <div className="space-y-4">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full gradient-spotify mb-6">
@@ -41,19 +40,12 @@ export function Intro() {
             {/* CTA Button */}
             <div className="pt-6">
                 <Button 
-                    onClick={nextSection}
+                    // onClick={nextSection}
                     size="lg"
                     className="gradient-spotify text-white font-bold px-8 py-6 text-lg rounded-full hover:scale-105 transition-transform duration-200 scale-in"
                 >
                     Começar a magia ✨
                 </Button>
-            </div>
-
-            {/* Bottom hint */}
-            <div className="pt-8">
-                <p className="text-xs text-muted-foreground">
-                    Use as setas ou clique para navegar
-                </p>
             </div>
         </div>
     );
