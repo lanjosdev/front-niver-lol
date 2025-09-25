@@ -116,26 +116,7 @@ body,
 }
 
 @layer base {
-  @font-face {
-    font-family: 'Helvetica Neue';
-    font-style: normal;
-    font-weight: 400; /* Regular */
-    src: url('./assets/fonts/HelveticaNeueLTStd-Roman.otf');
-  }
   
-  @font-face {
-    font-family: 'Helvetica Neue';
-    font-style: normal;
-    font-weight: 700; /* Bold */
-    src: url('./assets/fonts/HelveticaNeueLTStd-Bd.otf');
-  }
-  
-  @font-face {
-    font-family: 'Druk';
-    font-style: normal;
-    font-weight: 700; /* Bold */
-    src: url('./assets/fonts/Druk-Bold.otf');
-  }  
 
   * {
     @apply border-border outline-ring/50;
@@ -143,14 +124,14 @@ body,
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Helvetica Neue', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   }
 }
 
 @layer utilities {
-  .font-druk {
-    font-family: 'Druk', 'Helvetica Neue', ui-sans-serif, system-ui, sans-serif;
-  }
+  /* .font-druk {
+    font-family: 'Druk', ui-sans-serif, system-ui, sans-serif;
+  } */
   
   .gradient-spotify {
     background: linear-gradient(135deg, #1DB954 0%, #1ed760 50%, #06FFA5 100%);

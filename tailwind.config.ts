@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Helvetica Neue', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        druk: ['Druk', 'Helvetica Neue', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        jakarta: ['Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       }
     }
   },

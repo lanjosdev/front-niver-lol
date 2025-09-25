@@ -1,4 +1,3 @@
-// import { Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 import imageTP from '../../../assets/images/tp.webp';
 import { ChevronDown } from "lucide-react";
@@ -29,8 +28,8 @@ export function Timeline() {
 
                 {/* Foto principal */}
                 <div className="flex flex-col items-center space-y-2">
-                    <div className="shadow-md flex items-center justify-center">
-                        <img src={imageTP} className="w-full h-full object-cover rounded-lg" alt="Foto principal" fetchPriority="high" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="900" />
+                    <div className="flex items-center justify-center px-4">
+                        <img src={imageTP} className="w-full h-full object-cover rounded-lg shadow-xl" alt="Foto principal" fetchPriority="high" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="900" />
                     </div>
 
                     {/* Seta para baixo */}
