@@ -1,6 +1,7 @@
 // import { AppProvider } from "./contexts/AppContext";
 // import { Presentation } from "./components/organisms/Presentation/Presentation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AOS from "aos";
 // import { Teste } from "./components/organisms/Teste/Teste";
 import { Intro } from "./components/organisms/Intro/Intro";
 import { Timeline } from "./components/organisms/Timeline/Timeline";
@@ -21,6 +22,21 @@ export default function App() {
   ];
 
 
+  useEffect(() => {
+    AOS.init({
+      duration: 700,
+      once: false,
+      offset: 0,
+      easing: 'ease-out-cubic'
+    });
+  }, []);
+
+  useEffect(() => {
+    // Recalcula posições quando muda de seção
+    AOS.refresh();
+  }, [currentSection]);
+
+
   const renderSection = () => {
     const section = sections[currentSection]
 
@@ -36,7 +52,7 @@ export default function App() {
 
   return (
     <div
-      className="min-h-dvh w-full max-w-lg mx-auto flex flex-col overflow-x-hidden relative   border- border-yellow-500"
+      className="min-h-dvh w-full max-w-lg mx-auto flex flex-col overflow-x-hidden relative   border-4 border-yellow-500"
     >
       {/* {start ? (
         <Presentation />

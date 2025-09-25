@@ -13,16 +13,16 @@ export function Timeline() {
     ]
 
     return (
-        <div className="flex items-center justify-center p-6     bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-900   border- border-red-500">
+        <div className="flex items-center justify-center p-6 bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-900">
             <div className="animate-slide-in-up space-y-6">
                 {/* Título e subtítulo */}
                 <div className="text-center space-y-3">
-                    <h1 className="text-4xl font-bold">
+                    <h1 className="text-4xl font-bold" data-aos="zoom-in" data-aos-duration="800">
                         Hoje completa <br />
                         <span className="">27 anos...</span>
                     </h1>
 
-                    <p className="text-muted-foreground">
+                    <p className="text-muted-foreground" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
                         que nossas vidas são mais alegres por você existir
                     </p>
                 </div>
@@ -30,7 +30,7 @@ export function Timeline() {
                 {/* Foto principal */}
                 <div className="flex flex-col items-center space-y-2">
                     <div className="shadow-md flex items-center justify-center">
-                        <img src={imageTP} className="w-full h-full object-cover rounded-lg" alt="Foto principal" fetchPriority="high" />
+                        <img src={imageTP} className="w-full h-full object-cover rounded-lg" alt="Foto principal" fetchPriority="high" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="900" />
                     </div>
 
                     {/* Seta para baixo */}
@@ -40,15 +40,17 @@ export function Timeline() {
                 </div>
 
                 {/* Timeline */}
-                <div className="relative border-2 -mx-6  border-blue-500 -space-y-16">
+                <div className="relative -mx-6 -space-y-16">
                     {timelineImages.map((event, index) => (
                         <div
                             key={event.image}
-                            className={cn("flex items-center border-2 border-green-500", index % 2 === 0 ? "" : "flex-row-reverse -translate-y-14")}
+                            className={cn("flex items-center", index % 2 === 0 ? "" : "flex-row-reverse -translate-y-14")}
+                            data-aos="zoom-in"
+                            data-aos-duration="1000"
                         >
 
                             <div className={cn("w-[160px] h-[260px]", index % 2 === 0 ? "-rotate-8" : "rotate-8 -translate-x-4")}>
-                                <img src={event.image} className="w-full h-full object-cover rounded-lg" />
+                                <img src={event.image} className="w-full h-full object-cover rounded-lg"  />
                             </div>
                         </div>
                     ))}
