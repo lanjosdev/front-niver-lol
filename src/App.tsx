@@ -1,13 +1,15 @@
-// import { AppProvider } from "./contexts/AppContext";
-// import { Presentation } from "./components/organisms/Presentation/Presentation";
 import { useEffect, useRef, useState } from "react";
 import AOS from "aos";
-// import { Teste } from "./components/organisms/Teste/Teste";
+
+import { ProgressBar } from "./components/ui/ProgressBar";
 import { Intro } from "./components/organisms/Intro/Intro";
 import { Timeline } from "./components/organisms/Timeline/Timeline";
 import { Messages } from "./components/organisms/Messages/Messages";
+import { FinaleSection } from "./components/organisms/FinaleSection/FinaleSection";
 
 import soundBackground from "./assets/sounds/AsasLuedjiLuna.mp3";
+import { Button } from "./components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 
 
@@ -22,8 +24,6 @@ export default function App() {
   const sections = [
     { id: "timeline" },
     { id: "messages" },
-    { id: "curiosities" },
-    { id: "memories" },
     { id: "finale" },
   ];
 
@@ -145,23 +145,51 @@ export default function App() {
   }, []);
 
 
+  
+  
+  const nextSection = () => {
+    if (currentSection < sections.length - 1) {
+      // setIsAnimating(true)
+      // setTimeout(() => {
+        setCurrentSection(currentSection + 1)
+        // setIsAnimating(false)
+      // }, 100)
+    }
+  }
+
+  const prevSection = () => {
+    if (currentSection > 0) {
+      // setIsAnimating(true)
+      // setTimeout(() => {
+        setCurrentSection(currentSection - 1)
+        // setIsAnimating(false)
+      // }, 100)
+    }
+  }
+
+  const restart = () => {
+    setCurrentSection(0)
+    setStart(false)
+  }
+
   const renderSection = () => {
-    // const section = sections[currentSection]
-    const section = sections[1]
+    const section = sections[currentSection]
 
     switch (section.id) {
       case "timeline":
         return <Timeline />
       case "messages":
         return <Messages />
+      case "finale":
+        return <FinaleSection onRestart={restart} />
       default:
-        return <Intro />
+        return <Intro onStart={() => setStart(true)} />
     }
   }
 
   return (
     <div
-      className="min-h-dvh w-full max-w-lg mx-auto flex flex-col overflow-x-hidden relative   border-4 border-yellow-500"
+      className="min-h-dvh w-full max-w-lg mx-auto flex flex-col overflow-x-hidden relative"
     >
       <audio
         ref={audioRef}
@@ -173,8 +201,34 @@ export default function App() {
         className="hidden"
       />
 
+      {start ? (
+        <>
+          <ProgressBar currentSection={currentSection} totalSections={sections.length} />
 
-      {renderSection()}
+          {/* Main content area */}
+          {renderSection()}
+
+          {/* Navigation controls */}
+          <Button 
+            variant='ghost' 
+            className={`fixed top-0 left-0 h-dvh w-16 rounded-none hover:bg-black/20 transition-colors ${currentSection === 0 ? 'hidden' : ''}`} 
+            onClick={() => prevSection()}
+          >
+            <ChevronLeft className="text-muted-foreground drop-shadow-lg" />
+          </Button>
+          
+          <Button 
+            variant='ghost' 
+            className={`fixed top-0 right-0 h-dvh w-16 rounded-none hover:bg-black/20 transition-colors ${currentSection === sections.length - 1 ? 'hidden' : ''}`} 
+            onClick={() => nextSection()}
+          >
+            <ChevronRight className="text-muted-foreground drop-shadow-lg" />
+          </Button>
+        </>
+      ) : (
+        <Intro onStart={() => setStart(true)} />
+      )}
+
     </div>
   );
 }

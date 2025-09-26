@@ -5,10 +5,29 @@ import { ChevronDown } from "lucide-react";
 
 export function Timeline() {
     const timelineImages = [
-        { image: imageTP },
-        { image: imageTP },
-        { image: imageTP },
-        { image: imageTP },
+        { image: './images/timeline/t1.jpeg' },
+        { image: './images/timeline/t2.jpeg' },
+        { image: './images/timeline/t3.jpeg' },
+        { image: './images/timeline/t4.jpeg' },
+        { image: './images/timeline/t5.jpeg' },
+        { image: './images/timeline/t6.jpeg' },
+        { image: './images/timeline/t7.jpeg' },
+        { image: './images/timeline/t8.jpeg' },
+        { image: './images/timeline/t9.jpeg' },
+        { image: './images/timeline/t10.jpeg' },
+        { image: './images/timeline/t11.jpeg' },
+        { image: './images/timeline/t12.jpeg' },
+        { image: './images/timeline/t13.jpeg' },
+        { image: './images/timeline/t14.jpeg' },
+        { image: './images/timeline/t15.jpeg' },
+        { image: './images/timeline/t16.jpeg' },
+        { image: './images/timeline/t17.jpeg' },
+        { image: './images/timeline/t18.jpeg' },
+        { image: './images/timeline/t19.jpeg' },
+        { image: './images/timeline/t20.jpeg' },
+        { image: './images/timeline/t21.jpeg' },
+        { image: './images/timeline/t22.jpeg' },
+        { image: './images/timeline/t23.jpeg' },
     ]
 
     return (

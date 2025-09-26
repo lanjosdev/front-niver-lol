@@ -51,6 +51,11 @@ export function Messages() {
         }
     };
 
+    // useEffect para scroll automático para o topo
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     // Quando o modal fecha, pausar mídia ativa e retomar BG no mesmo gesto
     useEffect(() => {
         if (!isModalOpen) {
@@ -67,7 +72,7 @@ export function Messages() {
     }, [isModalOpen]);
 
     return (
-        <div className="flex-1 p-6 bg-gradient-to-br from-purple-900 via-pink-800 to-orange-900     border-4 border-red-500">
+        <div className="flex-1 p-6 bg-gradient-to-br from-purple-900 via-pink-800 to-orange-900">
             {/* <div className="hidden bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900 INTRO"></div>
 
             <div className="hidden bg-gradient-to-br from-green-900 via-teal-800 to-blue-900"></div>
@@ -90,7 +95,7 @@ export function Messages() {
                 </div>
 
                 {/* People Messages */}
-                <div className="grid grid-cols-2 gap-4     border-2 border-amber-500">
+                <div className="grid grid-cols-2 gap-4">
                     {peopleMessages.map((person, index) => (
                         <div
                             key={index}
