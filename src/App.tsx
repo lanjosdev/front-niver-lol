@@ -4,14 +4,13 @@ import AOS from "aos";
 import { ProgressBar } from "./components/ui/ProgressBar";
 import { Intro } from "./components/organisms/Intro/Intro";
 import { Timeline } from "./components/organisms/Timeline/Timeline";
+import { Moments } from "./components/organisms/Moments/Moments";
 import { Messages } from "./components/organisms/Messages/Messages";
-import { FinaleSection } from "./components/organisms/FinaleSection/FinaleSection";
+import { Finale } from "./components/organisms/Finale/Finale";
 
 import soundBackground from "./assets/sounds/AsasLuedjiLuna.mp3";
 import { Button } from "./components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-
 
 
 export default function App() {
@@ -23,6 +22,7 @@ export default function App() {
 
   const sections = [
     { id: "timeline" },
+    { id: "moments" },
     { id: "messages" },
     { id: "finale" },
   ];
@@ -144,26 +144,24 @@ export default function App() {
     };
   }, []);
 
-
-  
   
   const nextSection = () => {
     if (currentSection < sections.length - 1) {
       // setIsAnimating(true)
-      // setTimeout(() => {
+      setTimeout(() => {
         setCurrentSection(currentSection + 1)
         // setIsAnimating(false)
-      // }, 100)
+      }, 100)
     }
   }
 
   const prevSection = () => {
     if (currentSection > 0) {
       // setIsAnimating(true)
-      // setTimeout(() => {
+      setTimeout(() => {
         setCurrentSection(currentSection - 1)
         // setIsAnimating(false)
-      // }, 100)
+      }, 100)
     }
   }
 
@@ -178,10 +176,12 @@ export default function App() {
     switch (section.id) {
       case "timeline":
         return <Timeline />
+      case "moments":
+        return <Moments />
       case "messages":
         return <Messages />
       case "finale":
-        return <FinaleSection onRestart={restart} />
+        return <Finale onRestart={restart} />
       default:
         return <Intro onStart={() => setStart(true)} />
     }
@@ -211,18 +211,18 @@ export default function App() {
           {/* Navigation controls */}
           <Button 
             variant='ghost' 
-            className={`fixed top-0 left-0 h-dvh w-16 rounded-none hover:bg-black/20 transition-colors ${currentSection === 0 ? 'hidden' : ''}`} 
+            className={`fixed top-0 left-0 h-dvh w-12 rounded-none hover:bg-black/20 active:bg-black/20 transition-colors ${currentSection === 0 ? 'hidden' : ''}`} 
             onClick={() => prevSection()}
           >
-            <ChevronLeft className="text-muted-foreground drop-shadow-lg" />
+            <ChevronLeft className="drop-shadow-lg" />
           </Button>
           
           <Button 
             variant='ghost' 
-            className={`fixed top-0 right-0 h-dvh w-16 rounded-none hover:bg-black/20 transition-colors ${currentSection === sections.length - 1 ? 'hidden' : ''}`} 
+            className={`fixed top-0 right-0 h-dvh w-12 rounded-none hover:bg-black/20 active:bg-black/20 transition-colors ${currentSection === sections.length - 1 ? 'hidden' : ''}`} 
             onClick={() => nextSection()}
           >
-            <ChevronRight className="text-muted-foreground drop-shadow-lg" />
+            <ChevronRight className="drop-shadow-lg" />
           </Button>
         </>
       ) : (

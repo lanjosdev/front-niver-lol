@@ -18,8 +18,14 @@ export function Messages() {
     const mediaRef = useRef<HTMLVideoElement | HTMLAudioElement>(null);
 
     const peopleMessages: PersonMessage[] = [
+        { name: 'Duca', image: './images/perfil-duca.png', type_media: 'video', media: './messages/video-duca.mp4' },
         { name: 'Caio', image: './images/perfil-caio.jpeg', type_media: 'audio', media: './messages/audio-caio.ogg' },
+        { name: 'Cacau', image: './images/perfil-cacau.png', type_media: 'audio', media: './messages/audio-cacau.ogg' },
+        { name: 'Talabi', image: './images/perfil-talabi.jpeg', type_media: 'audio', media: './messages/audio-talabi.ogg' },
+        { name: 'Tia Dê', image: './images/perfil-de.jpg', type_media: 'audio', media: './messages/audio-de.ogg' },
         { name: 'Lucas', image: './images/perfil-lucas.jpg', type_media: 'video', media: '/messages/video-lucas.mp4' },
+        { name: 'Dan', image: './images/perfil-dan.jpeg', type_media: 'video', media: '/messages/video-dan.mp4' },
+        { name: 'Caê', image: './images/perfil-cae.jpeg', type_media: 'video', media: '/messages/video-cae.mp4' },
     ];
 
     const handleCardClick = (person: PersonMessage) => {
@@ -95,7 +101,7 @@ export function Messages() {
                 </div>
 
                 {/* People Messages */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4" data-aos="zoom-in" data-aos-duration="800">
                     {peopleMessages.map((person, index) => (
                         <div
                             key={index}
