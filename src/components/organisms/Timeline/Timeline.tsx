@@ -48,7 +48,16 @@ export function Timeline() {
                 {/* Foto principal */}
                 <div className="flex flex-col items-center space-y-2">
                     <div className="flex items-center justify-center px-4">
-                        <img src={imageTP} className="w-full h-full object-cover rounded-lg shadow-xl" alt="Foto principal" fetchPriority="high" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="900" />
+                        <img
+                            src={imageTP}
+                            className="w-full h-full object-cover rounded-lg shadow-xl"
+                            alt="Foto principal"
+                            fetchPriority="high"
+                            decoding="async"
+                            data-aos="zoom-in"
+                            data-aos-delay="200"
+                            data-aos-duration="900"
+                        />
                     </div>
 
                     {/* Seta para baixo */}
@@ -68,7 +77,15 @@ export function Timeline() {
                         >
 
                             <div className={cn("w-[160px] h-[260px]", index % 2 === 0 ? "-rotate-8" : "rotate-8 -translate-x-4")}>
-                                <img src={event.image} className="w-full h-full object-cover rounded-lg"  />
+                                <img
+                                    src={event.image}
+                                    className="w-full h-full object-cover rounded-lg"
+                                    alt="Foto da linha do tempo"
+                                    loading="lazy"
+                                    decoding="async"
+                                    width={160}
+                                    height={260}
+                                />
                             </div>
                         </div>
                     ))}

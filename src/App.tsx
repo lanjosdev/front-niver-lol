@@ -8,7 +8,7 @@ import { Moments } from "./components/organisms/Moments/Moments";
 import { Messages } from "./components/organisms/Messages/Messages";
 import { Finale } from "./components/organisms/Finale/Finale";
 
-import soundBackground from "./assets/sounds/AsasLuedjiLuna.mp3";
+// import soundBackground from "./assets/sounds/AsasLuedjiLuna.mp3";
 import { Button } from "./components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -193,7 +193,7 @@ export default function App() {
     >
       <audio
         ref={audioRef}
-        src={soundBackground}
+        src="./sounds/AsasLuedjiLuna.mp3"
         preload="auto"
         loop
         autoPlay

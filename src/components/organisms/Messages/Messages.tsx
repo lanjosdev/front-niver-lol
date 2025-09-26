@@ -79,15 +79,6 @@ export function Messages() {
 
     return (
         <div className="flex-1 p-6 bg-gradient-to-br from-purple-900 via-pink-800 to-orange-900">
-            {/* <div className="hidden bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900 INTRO"></div>
-
-            <div className="hidden bg-gradient-to-br from-green-900 via-teal-800 to-blue-900"></div>
-            <div className="hidden bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-900"></div>
-
-            <div className="hidden bg-gradient-to-br from-purple-900 via-pink-800 to-orange-900"></div>
-            <div className="hidden bg-gradient-to-br from-orange-900 via-red-800 to-pink-900"></div> */}
-
-
             <div className="animate-slide-in-up space-y-6">
                 {/* Título e subtítulo */}
                 <div className="text-center space-y-3">

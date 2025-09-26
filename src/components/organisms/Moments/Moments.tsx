@@ -4,11 +4,31 @@ import { useEffect } from "react";
 export function Moments() {
 
     const momentsImages = [
-        { image: './images/moments/doula.jpeg' },
-        { image: './images/moments/foto-hospital.jpeg' },
-        { image: './images/moments/pilota.jpeg' },
-        { image: './images/moments/macumba.jpeg' },
-        { image: './images/moments/praia.jpeg' },
+        {
+            image: './images/moments/doula.jpeg',
+            alt: 'Carol como doula oferecendo cuidado e acolhimento',
+            animation: 'zoom-in-left',
+        },
+        {
+            image: './images/moments/foto-hospital.jpeg',
+            alt: 'Registro de carinho no ambiente hospitalar',
+            animation: 'zoom-in-right',
+        },
+        {
+            image: './images/moments/pilota.jpeg',
+            alt: 'Carol pilotando com firmeza e alegria',
+            animation: 'zoom-in-left',
+        },
+        {
+            image: './images/moments/macumba.jpeg',
+            alt: 'Celebrando a espiritualidade com muita energia',
+            animation: 'zoom-in-right',
+        },
+        {
+            image: './images/moments/praia.jpeg',
+            alt: 'Momento relaxante à beira da praia',
+            animation: 'zoom-in-left',
+        },
     ];
 
     // useEffect para scroll automático para o topo
@@ -35,15 +55,20 @@ export function Moments() {
 
                 {/* Moments */}
                 <div className="space-y-8" data-aos="zoom-in" data-aos-duration="800">
-                    {/* {momentsImages.map((moment, index) => (
-                        <img src={moment.image} alt="Moment" key={index} className="w-full h-full object-cover rounded-lg shadow-xl" />
-                    ))} */}
-
-                    <img src={momentsImages[0].image} alt="Moment" className="w-full h-full object-cover rounded-lg shadow-xl" data-aos="zoom-in-left" data-aos-duration="800" />
-                    <img src={momentsImages[1].image} alt="Moment" className="w-full h-full object-cover rounded-lg shadow-xl" data-aos="zoom-in-right" data-aos-duration="800" />
-                    <img src={momentsImages[2].image} alt="Moment" className="w-full h-full object-cover rounded-lg shadow-xl" data-aos="zoom-in-left" data-aos-duration="800" />
-                    <img src={momentsImages[3].image} alt="Moment" className="w-full h-full object-cover rounded-lg shadow-xl" data-aos="zoom-in-right" data-aos-duration="800" />
-                    <img src={momentsImages[4].image} alt="Moment" className="w-full h-full object-cover rounded-lg shadow-xl" data-aos="zoom-in-left" data-aos-duration="800" />
+                    {momentsImages.map((moment, index) => (
+                        <img
+                            key={moment.image}
+                            src={moment.image}
+                            alt={moment.alt}
+                            className="w-full h-full object-cover rounded-lg shadow-xl"
+                            loading={index === 0 ? 'eager' : 'lazy'}
+                            decoding="async"
+                            data-aos={moment.animation}
+                            data-aos-duration="800"
+                            width={1200}
+                            height={1600}
+                        />
+                    ))}
                 </div>
 
                 <div className="text-center pt-4">
