@@ -38,7 +38,14 @@ export function Intro({ onStart }: { onStart: () => void }) {
                 {/* CTA Button */}
                 <div className="pt-6">
                     <Button
-                        onClick={onStart}
+                        onClick={() => {
+                            try {
+                                const restoreVol = window.__bgAudio?.initialVolume ?? 0.3;
+                                window.__bgAudio?.setVolume?.(restoreVol);
+                                window.__bgAudio?.play?.();
+                            } catch { /* noop */ }
+                            onStart();
+                        }}
                         size="lg"
                         className="bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold px-8 py-6 text-lg rounded-full hover:scale-105 transition-transform duration-200 scale-in"
                     >
